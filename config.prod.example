@@ -1,0 +1,41 @@
+export const config = {
+    /* Discord settings
+    * ownerRoleID: The role ID of the owners of the bot
+    */
+    guildID: "694878159652520038",
+    ownerRoleID: "694879608922832917",
+    socialFeedChannel: "701825603359473665",
+    token: "",
+    prefix: ".",
+
+    sentry: {
+        enabled: true,
+        dsn: ""
+    },
+    // MongoDB for storing reddit usernames and guild settings
+	mongodb: {
+		url: "mongodb://mongo:27017/talkreddit"
+    },
+    // What we use to fetch submissions, etc
+	reddit: {
+        clientId: "",
+        clientSecret: "",
+        userAgent: "",
+        username: "",
+        password: "",
+        subreddit: "",
+        verification: false
+    },
+
+    twitter: {
+        consumer_key: "",
+        consumer_secret: "",
+        access_token_key: "",
+        access_token_secret: "",
+        users: "1250448082564550656",
+    },
+
+    youtube: {
+        api_key: "",
+    }
+}

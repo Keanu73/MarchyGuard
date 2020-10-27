@@ -1,0 +1,53 @@
+{
+  "name": "MarchyGuard",
+  "version": "0.1.0",
+  "description": "The guard of Marchy's Pack - coded beautifully in discord.ts",
+  "main": "src/Client.ts",
+  "scripts": {
+    "start": "ts-node dist/index.js",
+    "build": "tsc -p ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Keanu73/MarchyGuard.git"
+  },
+  "keywords": [
+    "discord-bot",
+    "discord.ts"
+  ],
+  "contributors": [
+    "Keanu C. <keanu@keanu73.net> (https://keanu73.net)"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@discordjs/opus": "^0.3.2",
+    "@sentry/node": "^5.15.5",
+    "@typeit/discord": "^4.0.7",
+    "discord.js": "^12.2.0",
+    "mongoose": "^5.9.16",
+    "tslib": "^2.0.0",
+    "twitch": "^4.1.3",
+    "twitch-auth": "^1.0.3",
+    "twitter-lite": "^0.13.0",
+    "youtube.ts": "^0.1.3"
+  },
+  "devDependencies": {
+    "@types/mongoose": "^5.7.21",
+    "@types/node": "^14.0.5",
+    "@typescript-eslint/eslint-plugin": "^3.0.2",
+    "@typescript-eslint/eslint-plugin-tslint": "^3.0.2",
+    "@typescript-eslint/parser": "^3.0.2",
+    "eslint": "^7.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-json-format": "^2.0.1",
+    "eslint-plugin-prefer-arrow": "^1.2.1",
+    "eslint-plugin-prettier": "^3.1.3",
+    "husky": "^4.2.5",
+    "prettier": "2.0.5",
+    "pretty-quick": "^2.0.1",
+    "ts-node": "^8.10.2",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.3"
+  }
+}
