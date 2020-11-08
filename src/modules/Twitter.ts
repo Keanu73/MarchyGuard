@@ -1,6 +1,6 @@
 import { MessageEmbed, Guild, TextChannel } from "discord.js";
 import { Client } from "@typeit/discord";
-import * as twitter from "twitter-lite";
+import TwitterClient from "twitter-api-client";
 import { config } from "config";
 
 export class Twitter {
@@ -14,11 +14,11 @@ export class Twitter {
       `[TWITTER] listener started for users ${config.twitter.users} at ${new Date(this.started).toISOString()}`,
     );
 
-    const feed = new twitter.default({
-      consumer_key: config.twitter.consumer_key,
-      consumer_secret: config.twitter.consumer_secret,
-      access_token_key: config.twitter.access_token_key,
-      access_token_secret: config.twitter.access_token_secret,
+    const feed = new TwitterClient({
+      apiKey: config.twitter.consumer_key,
+      apiSecret: config.twitter.consumer_secret,
+      accessToken: config.twitter.access_token_key,
+      accessTokenSecret: config.twitter.access_token_secret,
     });
 
     const stream = feed.stream("statuses/filter", { follow: config.twitter.users });

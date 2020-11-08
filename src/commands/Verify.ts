@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+/*import { Message } from "discord.js";
 import { Command, CommandMessage } from "@typeit/discord";
 import { config } from "config";
 import { Reddit } from "src/modules/Reddit";
@@ -26,4 +26,4 @@ export abstract class Verify {
         });
     }
   }
-}
+}*/
