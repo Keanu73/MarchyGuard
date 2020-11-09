@@ -20,11 +20,13 @@ module.exports = {
 	parserOptions: {
 		ecmaVersion: 2020,
 		sourceType: "module",
-		tsconfigRootDir: __dirname,
-		project: ["./tsconfig.json"],
+		project: "./tsconfig.json",
 	},
 	plugins: ["@typescript-eslint", "json-format"],
     rules: {
-        "no-unused-expressions": "error"
+			"no-unused-expressions": "error",
+			"@typescript-eslint/no-unsafe-assignment": "off",
+			"@typescript-eslint/no-unsafe-member-access": "off",
+			"@typescript-eslint/no-unsafe-call": "off",
     },
 };

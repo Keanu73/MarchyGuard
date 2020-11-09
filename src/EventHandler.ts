@@ -3,16 +3,17 @@ import { Client, Discord, On } from "@typeit/discord";
 import * as Path from "path";
 import { config } from "config";
 import { Twitter } from "src/modules/Twitter";
-import { MuteAFK } from './modules/MuteAFK';
+import { AFKModule } from "src/modules/AFKModule";
 
 @Discord(config.prefix, {
-  import: [Path.join(__dirname, "..", "commands", "*.ts")],
+  import: [Path.join(__dirname, "commands", "*.ts")],
 })
 export class DiscordApp {
   @On("ready")
   onReady(client: Client): void {
     console.info(`${(client.user as User).tag} online with commands ${Client.getCommands().toString()}`);
-    Twitter.start(client);
+    //Twitter.start(client);
+    AFKModule.start(client);
   }
 
   @On("guildMemberAdd")
@@ -20,18 +21,19 @@ export class DiscordApp {
     void member.send("Yo Marques brownlee");
   }
 
-  /*@On("guildMemberRemove")
-  onLeave(_client: Client, member: GuildMember): void {
-    void member.send("Yo Marques brownlee");
-  }*/
-
   @On("voiceStateUpdate")
   onVoiceUpdate(oldState: VoiceState, newState: VoiceState): void {
-    //if (MuteAFK)
-    if (oldState.selfMute)
-    // Store timestamp joined, if muting starts, start counting (add timer into queue?) - if timer reaches threshold, move to AFK channel
-    // otherwise destroy timer in queue
-    //if (oldState.member.)
+    const member = oldState.member as GuildMember;
+    if (!AFKModule.checkQueue(member.id) && !oldState.selfMute && !newState.selfMute) return;
+    else if (!AFKModule.checkQueue(member.id) && !oldState.selfMute && newState.selfMute)
+      AFKModule.addToQueue(member.id, Date.now() / 1000 + 60);
+    else if (
+      AFKModule.checkQueue(member.id) &&
+      oldState.selfMute &&
+      !newState.selfMute &&
+      Date.now() / 1000 < AFKModule.fetchExpiry(member.id)
+    )
+      AFKModule.removeFromQueue(member.id);
   }
 
   /*@On("message")
