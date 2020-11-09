@@ -3,6 +3,7 @@ import { Client, Discord, On } from "@typeit/discord";
 import * as Path from "path";
 import { config } from "config";
 import { Twitter } from "src/modules/Twitter";
+import { MuteAFK } from './modules/MuteAFK';
 
 @Discord(config.prefix, {
   import: [Path.join(__dirname, "..", "commands", "*.ts")],
@@ -26,6 +27,8 @@ export class DiscordApp {
 
   @On("voiceStateUpdate")
   onVoiceUpdate(oldState: VoiceState, newState: VoiceState): void {
+    //if (MuteAFK)
+    if (oldState.selfMute)
     // Store timestamp joined, if muting starts, start counting (add timer into queue?) - if timer reaches threshold, move to AFK channel
     // otherwise destroy timer in queue
     //if (oldState.member.)

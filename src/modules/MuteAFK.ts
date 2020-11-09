@@ -22,6 +22,18 @@ export class MuteAFK {
     else return false;
   }
 
+  checkQueue(id: string): boolean {
+    const result = this.queue.find((item) => item.id === id);
+    if (result) return true;
+    else return false;
+  }
+
+  removeFromQueue(id: string): boolean {
+    const result = this.queue.splice(this.queue.findIndex((item) => item.id === id));
+    if (result) return true;
+    else return false;
+  }
+
   async queueProcess(): Promise<void> {
     const queue = this.queue;
     // Fetch the guild for ease of use, force new cache
