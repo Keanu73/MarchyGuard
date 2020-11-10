@@ -1,4 +1,4 @@
-import { GuildMember, User, VoiceState } from "discord.js";
+import { GuildMember, MessageReaction, User, VoiceState } from "discord.js";
 import { Client, Discord, On } from "@typeit/discord";
 import * as Path from "path";
 import { config } from "config";
@@ -34,6 +34,17 @@ export class DiscordApp {
       Date.now() / 1000 < AFKModule.fetchExpiry(member.id)
     )
       AFKModule.removeFromQueue(member.id);
+  }
+
+  @On("messageReactionAdd")
+  reactionAdded(reaction: MessageReaction, user: User): void {
+    // Check if message is the agreement message
+    // If so, if they don't already have the Follower role, grant it
+    if (
+      reaction.message.id === config.agreementMessageID &&
+      !reaction.message.member?.roles.cache.has("771095055963914322")
+    )
+      void reaction.message.member?.roles.add("771095055963914322");
   }
 
   /*@On("message")
