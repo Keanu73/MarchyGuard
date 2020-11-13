@@ -1,4 +1,4 @@
-import { MessageEmbed, Guild, TextChannel } from "discord.js";
+/*import { MessageEmbed, Guild, TextChannel } from "discord.js";
 import { Client } from "@typeit/discord";
 import TwitterClient from "twitter-api-client";
 import { config } from "config";
@@ -91,3 +91,4 @@ class User {
   statuses_count: number;
   profile_image_url_https: string;
 }
+*/

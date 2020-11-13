@@ -1,4 +1,4 @@
-import { Command, CommandMessage, Description, Guard } from "@typeit/discord";
+/*import { Command, CommandMessage, Description, Guard } from "@typeit/discord";
 import { NotBot } from "src/guards/NotBot";
 import { Owner } from "src/guards/Owner";
 import { config } from "config";
@@ -40,3 +40,4 @@ export abstract class Soundboards {
     // Then if so, join voice channel, connection.play, on("finish") leave.
   }
 }
+*/

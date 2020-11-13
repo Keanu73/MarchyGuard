@@ -1,4 +1,6 @@
-import Enmap from "enmap";
+/*import Enmap from "enmap";
+
+// on new message check if name is in soundboard repository?
 
 export class Soundboard {
   private static started: number;
@@ -39,3 +41,4 @@ export class Soundboard {
     } else return false;
   }
 }
+*/

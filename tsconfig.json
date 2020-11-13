@@ -8,6 +8,9 @@
         "experimentalDecorators": true,
         "moduleResolution": "node",
         "importHelpers": true,
+        "types": [
+            "node"
+        ],
         "typeRoots": [
             "node_modules/@types"
         ],
@@ -16,10 +19,10 @@
             "esnext.asynciterable"
         ],
         "allowJs": true,
-        "target": "esnext",
+        "target": "es2017",
         "module": "commonjs",
         "strict": true, /* Enable all strict type-checking options. */
-        "noImplicitAny": true, /* Raise error on expressions and declarations with an implied 'any' type. */
+        "noImplicitAny": false, /* Raise error on expressions and declarations with an implied 'any' type. */
         "strictNullChecks": true, /* Enable strict null checks. */
         "strictFunctionTypes": true, /* Enable strict checking of function types. */
         "strictBindCallApply": true, /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
@@ -34,9 +37,6 @@
         "emitDecoratorMetadata": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": [
-        "./src"
-    ],
     "exclude": [
         "node_modules"
     ]

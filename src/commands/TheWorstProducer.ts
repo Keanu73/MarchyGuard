@@ -1,6 +1,6 @@
-import { Message } from "discord.js";
+/*import { Message } from "discord.js";
 import { Command, CommandMessage, Description, Guard } from "@typeit/discord";
-import { config } from "config";
+import { config } from "../config";
 
 export abstract class TheWorstProducer {
   @Command("niklasisannoying")
@@ -15,3 +15,4 @@ export abstract class TheWorstProducer {
     // If kick,
   }
 }
+*/
