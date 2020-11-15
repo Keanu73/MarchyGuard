@@ -1,7 +1,9 @@
+import "reflect-metadata";
 import { ClientUser, GuildMember, MessageReaction, User } from "discord.js";
-import { Client, Discord, On } from "@typeit/discord";
+import { Client, Discord, On, Once } from "@typeit/discord";
 import { config } from "./Config";
 import * as Sentry from "@sentry/node";
+import { Database } from "./modules/database/Database";
 //import { Twitter } from "./modules/Twitter";
 
 @Discord(config.prefix, {
@@ -20,7 +22,7 @@ export class Bot {
     void this.client.login(config.token);
   }
 
-  @On("ready")
+  @Once("ready")
   onReady(): void {
     console.log(`${(this.client.user as ClientUser).tag} online with commands ${Client.getCommands().toString()}`);
     void this.client.user?.setPresence({
@@ -30,6 +32,7 @@ export class Bot {
         url: "https://twitch.tv/Maarchy",
       },
     });
+    void Database.initConnection();
     //Twitter.start(client);
   }
 

@@ -10,6 +10,10 @@ export class AFKModule {
     // If they are already in AFK channel, forget about it
     if (newState.channelID === config.afkChannel) return;
     const member = oldState.member as GuildMember;
+    // Store unmuted or leaving unmuted criteria for line 50
+    const unmutedLeaveCriteria =
+      (oldState.selfMute && !newState.selfMute) ||
+      (oldState.selfMute && oldState.channel && newState.selfMute && !newState.channel);
     // If they aren't in the timer list and they aren't muted either way, forget about it
     if (!timers.get(member.id) && !oldState.selfMute && !newState.selfMute) return;
     // Get the timer
@@ -43,15 +47,7 @@ export class AFKModule {
       );
       // However, if they either: unmuted after they were added to the queue
       // Or if they left the channel..
-    } else if (
-      (timeout && Date.now() / 1000 < timeout.duration / 1000 && oldState.selfMute && !newState.selfMute) ||
-      (timeout &&
-        Date.now() / 1000 < timeout.duration / 1000 &&
-        oldState.selfMute &&
-        oldState.channel &&
-        newState.selfMute &&
-        !newState.channel)
-    ) {
+    } else if (timeout && Date.now() / 1000 < timeout.timestamp / 1000 && unmutedLeaveCriteria) {
       // Abort the timeout - turn the key.
       timeout.controller.abort();
       // Remove them from the map so we don't accidentally fetch them later.
@@ -80,15 +76,16 @@ export const AFKTimeout = async (client: Client, id: string): Promise<void> => {
   void member.voice.setChannel("775136769187381269");
 };
 
+// BetterTimeout wraps the timeout (the lock), the AbortController (the key), and the approximate timestamp to abort the timeout against
 export class BetterTimeout {
   timeout: Promise<void | Promise<GuildMember>>;
   controller: AbortController;
-  duration: number;
+  timestamp: number;
 
-  constructor(timeout: Promise<void | Promise<GuildMember>>, controller: AbortController, duration: number) {
+  constructor(timeout: Promise<void | Promise<GuildMember>>, controller: AbortController, timestamp: number) {
     this.timeout = timeout;
     this.controller = controller;
-    this.duration = duration;
+    this.timestamp = timestamp;
   }
 }
 
