@@ -5,7 +5,7 @@
   "main": "src/Client.ts",
   "scripts": {
     "start": "ts-node-dev src/Bot.ts",
-    "start:prod": "ts-node dist/Bot.js",
+    "start:prod": "ts-node src/Bot.ts",
     "build": "rimraf ./dist && tsc"
   },
   "repository": {
