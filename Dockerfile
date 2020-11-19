@@ -1,11 +1,11 @@
-FROM node:15.2.0-alpine3.10
+FROM node:15.2.0
 
-WORKDIR /app/node
+WORKDIR /app/
 
 COPY package.json .
-RUN npm install
+RUN npm install --legacy-peer-deps
 
-ADD . /app/node
+ADD . /app/
 RUN npm run build
 
-CMD [ "npm", "run", "start" ]
+CMD [ "npm", "run", "start:prod" ]

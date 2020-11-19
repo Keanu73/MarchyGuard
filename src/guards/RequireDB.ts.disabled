@@ -1,0 +1,9 @@
+import { GuardFunction } from "@typeit/discord";
+import { config } from "../Config.ts.dev";
+
+export const RequireDB: GuardFunction<"message"> = async ([_message], _client, next) => {
+  if (config.mongodb.enabled) {
+    console.log("RequireDB");
+    await next();
+  }
+};

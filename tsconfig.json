@@ -15,8 +15,9 @@
             "node_modules/@types"
         ],
         "lib": [
+            "dom",
             "es2017",
-            "esnext.asynciterable"
+            "esnext.asynciterable",
         ],
         "allowJs": true,
         "target": "es2017",

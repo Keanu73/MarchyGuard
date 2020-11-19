@@ -5,7 +5,7 @@
   "main": "src/Client.ts",
   "scripts": {
     "start": "ts-node-dev src/Bot.ts",
-    "start:prod": "ts-node src/Bot.ts",
+    "start:prod": "ts-node dist/Bot.js",
     "build": "rimraf ./dist && tsc"
   },
   "repository": {
@@ -23,13 +23,11 @@
   "dependencies": {
     "@discordjs/opus": "^0.3.3",
     "@sentry/node": "^5.27.1",
-    "@typeit/discord": "^4.0.8",
-    "@types/chalk": "^2.2.0",
+    "@typeit/discord": "https://gitpkg.now.sh/Keanu73/discord.ts?build",
     "@types/node": "github:Keanu73/DefinitelyTyped",
     "@types/node-fetch": "^2.5.7",
-    "better-sqlite-pool": "^0.3.0",
-    "chalk": "^4.1.0",
     "discord.js": "^12.4.1",
+    "ffmpeg-static": "^4.2.7",
     "mongodb": "^3.6.3",
     "node-fetch": "^2.6.1",
     "reflect-metadata": "^0.1.13",

@@ -1,13 +1,13 @@
-version: '3.1'
+version: '3.8'
 
 services:
   mongo:
     image: mongo:4.4.1-bionic
     env_file: .envdb
     volumes:
-      - ./data/mongodb:/data/db
-    ports:
-      - 127.0.0.1:27017:27017
+      - ./mongodb:/data/db
+    networks:
+      - app-network
 
   bot:
     tty: true
@@ -17,7 +17,7 @@ services:
     depends_on:
       - mongo
     volumes:
-      - ./data:/srv/app
+      - ./sounds:/app/sounds
     networks:
       - app-network
     restart: always
