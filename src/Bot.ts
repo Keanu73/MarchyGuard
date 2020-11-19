@@ -1,6 +1,6 @@
 import "reflect-metadata";
-import { ClientUser, MessageReaction, TextChannel, User } from "discord.js";
-import { Client, Discord, On, Once } from "@typeit/discord";
+import { ClientUser, TextChannel } from "discord.js";
+import { Client, Discord, Once } from "@typeit/discord";
 import { config } from "./Config";
 import * as Sentry from "@sentry/node";
 import { Database } from "./modules/database/Database";
@@ -38,31 +38,19 @@ export abstract class Bot {
     );
     void this.client.user?.setPresence({
       activity: {
-        name: "everyone.....",
+        name: "Marchy FLIEEEE",
         type: "WATCHING",
         url: "https://twitch.tv/Maarchy",
       },
     });
 
     const channel = await this.client.channels.fetch(config.agreementChannelID);
-    void (channel as TextChannel).messages.fetch(config.agreementMessageID);
-    //Twitter.start(client);
-  }
-
-  @On("messageReactionAdd")
-  async messageReactionAdd([reaction, user]: [MessageReaction, User], _client: Client): Promise<void> {
-    const guild = reaction.message.guild;
-    const member = guild?.members.resolve(user);
-
-    // Check if message is the agreement message
-    // If so, if they don't already have the Follower role, grant it
-    if (reaction.message.id === config.agreementMessageID && !member?.roles.cache.has(config.newMemberRoleID)) {
-      console.info(
-        `[${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, "0")}] Added ${
-          user.username
-        } to the server`,
-      );
-      void member?.roles.add(config.newMemberRoleID, "verification");
+    const msg = await (channel as TextChannel).messages.fetch(config.agreementMessageID);
+    try {
+      void msg.react("✅");
+    } catch (err) {
+      console.info(err);
     }
+    //Twitter.start(client);
   }
 }
