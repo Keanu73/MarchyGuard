@@ -1,7 +1,7 @@
 import { createConnection, Connection, getMongoRepository, MongoRepository } from "typeorm";
 import * as fs from "fs/promises";
 import * as Path from "path";
-import { config } from "../../Config.ts.dev";
+import { config } from "../../Config";
 import { Sound } from "./entities/Sound";
 
 // Connect to MongoDB database with TypeORM

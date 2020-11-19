@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { ClientUser, MessageReaction, TextChannel, User } from "discord.js";
 import { Client, Discord, On, Once } from "@typeit/discord";
-import { config } from "./Config.ts.dev";
+import { config } from "./Config";
 import * as Sentry from "@sentry/node";
 import { Database } from "./modules/database/Database";
 //import { Twitter } from "./modules/Twitter";

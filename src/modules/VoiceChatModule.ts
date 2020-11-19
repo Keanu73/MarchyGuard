@@ -1,6 +1,6 @@
 import { GuildMember, TextChannel, VoiceState } from "discord.js";
 import { Client, On } from "@typeit/discord";
-import { config } from "../Config.ts.dev";
+import { config } from "../Config";
 
 export class VoiceChatModule {
   @On("voiceStateUpdate")
