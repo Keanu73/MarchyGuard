@@ -5,7 +5,6 @@ import { config } from "../Config";
 export abstract class AgreementModule {
   @On("messageReactionAdd")
   async messageReactionAdd([reaction, user]: [MessageReaction, User], _client: Client): Promise<void> {
-    if (reaction.me) return;
     const guild = reaction.message.guild;
     const member = guild?.members.resolve(user);
 
