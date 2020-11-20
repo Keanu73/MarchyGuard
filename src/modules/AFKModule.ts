@@ -8,7 +8,8 @@ export class AFKModule {
   @On("voiceStateUpdate")
   onVoiceUpdate([oldState, newState]: VoiceState[], client: Client): void {
     // If they are already in AFK channel, forget about it
-    if (newState.channelID === config.afkChannel) return;
+    const afkChannel = newState.guild.channels.cache.find((channel) => channel.name === "AFK");
+    if (newState.channel === afkChannel) return;
     const member = oldState.member as GuildMember;
     // If they aren't in the timer list and they aren't muted either way, forget about it
     if (!timers.get(member.id) && !oldState.selfMute && !newState.selfMute) return;
@@ -57,16 +58,25 @@ export class AFKModule {
 export const AFKTimeout = async (client: Client, id: string): Promise<void> => {
   // Fetch the guild for ease of use, force new cache
   const guild = await client.guilds.fetch(config.guildID, false, true);
+  const afkChannel = guild.channels.cache.find((channel) => channel.name === "AFK");
   const member = await guild.members.fetch({ user: id, cache: false, force: true });
-  // Move person to AFK channel
-  console.log(
-    `[AFKMODULE] Member ${
-      member.user.username
-    } now moved to AFK channel @ ${new Date().getHours()}:${new Date().getMinutes()}`,
-  );
-  // Remove them from the timers map so we don't accidentally fetch them again
-  timers.delete(member.id);
-  void member.voice.setChannel("775136769187381269", "User was AFK for 10 minutes");
+  if (afkChannel) {
+    // Move person to AFK channel
+    console.log(
+      `[AFKMODULE] Member ${
+        member.user.username
+      } now moved to AFK channel @ ${new Date().getHours()}:${new Date().getMinutes()}`,
+    );
+    // Remove them from the timers map so we don't accidentally fetch them again
+    timers.delete(member.id);
+    void member.voice.setChannel(afkChannel, "User was AFK for 10 minutes");
+  } else {
+    console.error(
+      `[AFKMODULE] Moving ${
+        member.user.username
+      } to AFK channel failed @ ${new Date().getHours()}:${new Date().getMinutes()}`,
+    );
+  }
 };
 
 // BetterTimeout wraps the timeout (the lock), the AbortController (the key), and the approximate timestamp to abort the timeout against

@@ -12,7 +12,7 @@ import { Database } from "./modules/database/Database";
 export abstract class Bot {
   private client: Client;
   constructor() {
-    if (config.sentry.enabled) Sentry.init({ dsn: config.sentry.dsn });
+    if (config.sentry.enabled) Sentry.init({ dsn: config.sentry.dsn, tracesSampleRate: 1.0 });
 
     if (config.mongodb.enabled) void Database.initConnection().then(() => Database.importSounds());
 
