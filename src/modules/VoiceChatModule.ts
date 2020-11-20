@@ -22,7 +22,7 @@ export class VoiceChatModule {
       const voiceChannel = oldState.channel;
       void (voiceChatChannel as TextChannel).updateOverwrite(
         member,
-        {},
+        { VIEW_CHANNEL: false },
         `${member.user.username} joined ${voiceChannel.name}`,
       );
     } else if (oldState.channel && newState.channel && newState.channel !== afkChannel) {
@@ -36,7 +36,7 @@ export class VoiceChatModule {
       const voiceChannel = oldState.channel;
       void (voiceChatChannel as TextChannel).updateOverwrite(
         member,
-        {},
+        { VIEW_CHANNEL: false },
         `${member.user.username} joined ${voiceChannel.name}`,
       );
     }
