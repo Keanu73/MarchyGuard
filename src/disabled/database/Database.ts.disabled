@@ -2,7 +2,7 @@ import { createConnection, Connection, getMongoRepository, MongoRepository } fro
 import * as fs from "fs/promises";
 import * as Path from "path";
 import { config } from "../../Config";
-import { Sound } from "./entities/Sound";
+import { Sound } from "./entities/Sound.ts.disabled";
 
 // Connect to MongoDB database with TypeORM
 // Statistics & Soundboard database modules - they interface with database and are able to be gotten.

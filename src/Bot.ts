@@ -3,7 +3,6 @@ import { ClientUser, TextChannel } from "discord.js";
 import { Client, Discord, Once } from "@typeit/discord";
 import { config } from "./Config";
 import * as Sentry from "@sentry/node";
-import { Database } from "./modules/database/Database";
 //import { Twitter } from "./modules/Twitter";
 
 @Discord(config.prefix, {
@@ -14,7 +13,7 @@ export abstract class Bot {
   constructor() {
     if (config.sentry.enabled) Sentry.init({ dsn: config.sentry.dsn, tracesSampleRate: 1.0 });
 
-    if (config.mongodb.enabled) void Database.initConnection().then(() => Database.importSounds());
+    //if (config.mongodb.enabled) void Database.initConnection().then(() => Database.importSounds());
 
     this.client = new Client({
       classes: [
