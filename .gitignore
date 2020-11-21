@@ -105,4 +105,4 @@ dist
 
 mongodb/
 sounds/
-#config.ts
+src/Config.ts
