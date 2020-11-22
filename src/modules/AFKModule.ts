@@ -63,18 +63,18 @@ export const AFKTimeout = async (client: Client, id: string): Promise<void> => {
   if (afkChannel) {
     // Move person to AFK channel
     console.log(
-      `[AFKMODULE] Member ${
-        member.user.username
-      } now moved to AFK channel @ ${new Date().getHours()}:${new Date().getMinutes()}`,
+      `[AFKMODULE] Member ${member.user.username} now moved to AFK channel @ ${new Date().getHours()}:${String(
+        new Date().getMinutes(),
+      ).padStart(2, "0")}`,
     );
     // Remove them from the timers map so we don't accidentally fetch them again
     timers.delete(member.id);
     void member.voice.setChannel(afkChannel, "User was AFK for 10 minutes");
   } else {
     console.error(
-      `[AFKMODULE] Moving ${
-        member.user.username
-      } to AFK channel failed @ ${new Date().getHours()}:${new Date().getMinutes()}`,
+      `[AFKMODULE] Moving ${member.user.username} to AFK channel failed @ ${new Date().getHours()}:${String(
+        new Date().getMinutes(),
+      ).padStart(2, "0")}`,
     );
   }
 };

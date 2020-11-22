@@ -27,6 +27,8 @@
     "@types/node": "github:Keanu73/DefinitelyTyped",
     "@types/node-fetch": "^2.5.7",
     "discord.js": "^12.4.1",
+    "dotenv": "^8.2.0",
+    "dotenv-extended": "^2.9.0",
     "ffmpeg-static": "^4.2.7",
     "node-fetch": "^2.6.1",
     "reflect-metadata": "^0.1.13",

@@ -1,0 +1,26 @@
+      const messages = await channel.messages.fetch();
+      const filteredMessages = messages.filter((message) => message.author.id === this.client.user?.id);
+      if (messages.size === 1 && filteredMessages.size === 0) {
+        void channel.bulkDelete(1);
+        const owner = this.client.users.resolve(config.ownerID);
+        if (owner)
+          void owner
+            .send(
+              `:robot: I have located 1 message which was not authored by MarchyGuard in <#${channel.id}>. I will now ask you to paste the exact contents of the rules message you want to send into <#${channel.id}>. Take your time.`,
+            )
+            .then((_msg) => {
+              void owner.dmChannel
+                ?.awaitMessages((msg) => msg.author.id === config.ownerID, { max: 1 })
+                .then((collected) => {
+                  const content = collected.first()?.content;
+                  if (content)
+                    void channel
+                      .send(content)
+                      .then((_msg) =>
+                        owner.send(
+                          `:robot: I have successfully sent the message into the rules agreement channel. You can update this message in future using the ${config.prefix}updateAgreementMessage command.`,
+                        ),
+                      );
+                });
+            });
+      }
