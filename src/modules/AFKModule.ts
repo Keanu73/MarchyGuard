@@ -12,12 +12,12 @@ export class AFKModule {
     if (newState.channel === afkChannel) return;
     const member = oldState.member as GuildMember;
     // If they aren't in the timer list and they aren't muted either way, forget about it
-    if (!timers.get(member.id) && !oldState.selfMute && !newState.selfMute) return;
+    if (!timers.get(member.id) && !oldState.selfDeaf && !newState.selfDeaf) return;
     // Get the timer
     const timeout: BetterTimeout | undefined = timers.get(member.id);
     const controller = new AbortController();
     // If they just muted and they aren't already timed..
-    if (!timeout && !oldState.selfMute && newState.selfMute) {
+    if (!timeout && !oldState.selfDeaf && newState.selfDeaf) {
       const signal = controller.signal;
       const timestamp = Date.now() + config.afkTimeout * 60000;
       // Create timeout that executes function at specific point in time depending on configured AFK timeout
@@ -45,7 +45,7 @@ export class AFKModule {
       // However, if they either: unmuted after they were added to the queue
       // Or if they left the channel..
     } else if (timeout && Date.now() / 1000 < timeout.timestamp / 1000) {
-      if ((oldState.selfMute && !newState.selfMute) || (oldState.channel && !newState.channel)) {
+      if ((oldState.selfDeaf && !newState.selfDeaf) || (oldState.channel && !newState.channel)) {
         // Abort the timeout - turn the key.
         timeout.controller.abort();
         // Remove them from the map so we don't accidentally fetch them later.
