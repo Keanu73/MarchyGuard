@@ -1,6 +1,6 @@
 {
   "name": "marchyguard",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "description": "The guard of Marchy's Pack - coded beautifully in discord.ts",
   "main": "src/Client.ts",
   "scripts": {
@@ -25,15 +25,14 @@
     "@sentry/tracing": "^5.27.1",
     "@typeit/discord": "https://gitpkg.now.sh/Keanu73/discord.ts?build",
     "@types/node": "github:Keanu73/DefinitelyTyped",
-    "@types/node-fetch": "^2.5.7",
     "discord.js": "^12.4.1",
     "dotenv": "^8.2.0",
     "dotenv-extended": "^2.9.0",
     "ffmpeg-static": "^4.2.7",
-    "node-fetch": "^2.6.1",
+    "install": "^0.13.0",
+    "node-fetch": "^3.0.0-beta.9",
     "reflect-metadata": "^0.1.13",
     "tslib": "^2.0.3",
-    "twitter-api-client": "^1.0.7",
     "typescript": "^4.0.5",
     "youtube.ts": "^0.1.8"
   },

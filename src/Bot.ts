@@ -3,7 +3,7 @@ import { ClientUser, TextChannel } from "discord.js";
 import { Client, Discord, Once } from "@typeit/discord";
 import { config } from "./Config";
 import * as Sentry from "@sentry/node";
-//import { Twitter } from "./modules/Twitter";
+import { Twitter } from "./modules/Twitter";
 
 @Discord(config.prefix, {
   import: [`${__dirname}/commands/*.js`, `${__dirname}/commands/*.ts`],
@@ -60,6 +60,7 @@ export abstract class Bot {
         url: "https://twitch.tv/Maarchy",
       },
     });
-    //Twitter.start(client);
+
+    void Twitter.start(this.client);
   }
 }
