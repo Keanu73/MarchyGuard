@@ -18,8 +18,8 @@ export const config = {
     apiKey: process.env.TWITTER_API_KEY,
     apiKeySecret: process.env.TWITTER_API_SECRET,
     bearerToken: process.env.TWITTER_BEARER_TOKEN,
-    access_token_key: process.env.TWITTER_ACCESS_KEY,
-    access_token_secret: process.env.TWITTER_ACCESS_SECRET,
+    accessTokenKey: process.env.TWITTER_ACCESS_KEY,
+    accessTokenSecret: process.env.TWITTER_ACCESS_SECRET,
     users: process.env.TWITTER_USERS,
   },
 
