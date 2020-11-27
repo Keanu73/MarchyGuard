@@ -1,8 +1,6 @@
 <p align="center">
   <br/>
-  <a href="https://twitch.tv/Maarchy"><img src="https://i.imgur.com/iwm5vRn.png" width="150px"></a>
-  <br/>
-  <br/>
+  <a href="https://twitch.tv/Maarchy"><img src="https://i.imgur.com/iwm5vRn.png" width="200px"></a>
   <h1 align="center">
     <p align="center">
       MarchyGuard
