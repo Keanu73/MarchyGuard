@@ -1,10 +1,10 @@
-import { Client, Command, CommandInfos, CommandMessage } from "@typeit/discord";
-import { MessageEmbed } from "discord.js";
+import { ArgsOf, Client, Command } from "@typeit/discord";
 
 export abstract class Help {
   @Command("help")
-  help(message: CommandMessage, _client: Client): void {
-    const cmds = Client.getCommands();
+  async help([message]: ArgsOf<"message">, _client: Client): Promise<void> {
+    void message.reply("REEEE");
+    /*const cmds = Client.getCommands();
     console.log(cmds);
     console.log(message);
     const avatarURL = message?.client?.user?.avatarURL();
@@ -18,7 +18,7 @@ export abstract class Help {
       embed.addField(`${c.prefix.toString()}${c.commandName.toString()}`, c.description, false);
     });
     void message.channel.send(embed);
-    /*const embed = new MessageEmbed()
+    const embed = new MessageEmbed()
         .setColor("0486FF")
         .setAuthor("MarchyGuard", avatarURL ? avatarURL : "", "https://github.com/Keanu73/MarchyGuard")
         .setFooter("Made by Thomas van Tilburg and Keanu73 with ❤️", "https://i.imgur.com/1t8gmE7.png")

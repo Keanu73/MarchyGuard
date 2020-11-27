@@ -5,7 +5,7 @@
   "main": "src/Client.ts",
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only src/Bot.ts",
-    "start:prod": "node dist/Bot.js",
+    "start:prod": "node dist/Bot.ts",
     "build": "tsc -p tsconfig.production.json"
   },
   "repository": {
@@ -23,7 +23,7 @@
   "dependencies": {
     "@sentry/node": "^5.27.1",
     "@sentry/tracing": "^5.27.1",
-    "@typeit/discord": "https://gitpkg.now.sh/Keanu73/discord.ts?build",
+    "@typeit/discord": "github:Keanu73/discord.ts#build",
     "@types/node": "github:Keanu73/DefinitelyTyped",
     "discord.js": "^12.4.1",
     "dotenv": "^8.2.0",
