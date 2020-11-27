@@ -1,8 +1,0 @@
-import { Client, Command, CommandMessage } from "@typeit/discord";
-
-export abstract class TheWorstProducer {
-  @Command("niklasisannoying")
-  niklasannoyingalert(message: CommandMessage, _client: Client): void {
-    void message.reply("REEEE");
-  }
-}

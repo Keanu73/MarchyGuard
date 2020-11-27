@@ -1,11 +1,11 @@
 {
   "name": "marchyguard",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "The guard of Marchy's Pack - coded beautifully in discord.ts",
-  "main": "src/Client.ts",
+  "main": "src/Bot.ts",
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only src/Bot.ts",
-    "start:prod": "node dist/Bot.js",
+    "start:prod": "node dist/Bot.ts",
     "build": "tsc -p tsconfig.production.json"
   },
   "repository": {
@@ -17,13 +17,14 @@
     "discord.ts"
   ],
   "contributors": [
-    "Keanu C. <keanu@keanu73.net> (https://keanu73.net)"
+    "Keanu C. <keanu@keanu73.net> (https://keanu73.net)",
+    "Pho3niX90 (https://github.com/Pho3niX90)"
   ],
   "license": "MIT",
   "dependencies": {
+    "@pho3nix90/discordts": "^4.1.11",
     "@sentry/node": "^5.27.1",
     "@sentry/tracing": "^5.27.1",
-    "@typeit/discord": "https://gitpkg.now.sh/Keanu73/discord.ts?build",
     "@types/node": "github:Keanu73/DefinitelyTyped",
     "discord.js": "^12.4.1",
     "dotenv": "^8.2.0",

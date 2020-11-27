@@ -1,5 +1,5 @@
 import { GuildMember, VoiceState } from "discord.js";
-import { Client, On } from "@typeit/discord";
+import { Client, On } from "@pho3nix90/discordts";
 import { config } from "../Config";
 import { AbortController } from "abort-controller";
 import { setTimeout } from "timers/promises";
@@ -7,16 +7,16 @@ import { setTimeout } from "timers/promises";
 export class AFKModule {
   @On("voiceStateUpdate")
   onVoiceUpdate([oldState, newState]: VoiceState[], client: Client): void {
-    // If they are already in AFK channel, forget about it
+    // If they are already in the AFK channel, forget about it
     const afkChannel = newState.guild.channels.cache.find((channel) => channel.name === "AFK");
     if (newState.channel === afkChannel) return;
     const member = oldState.member as GuildMember;
-    // If they aren't in the timer list and they aren't muted either way, forget about it
+    // If they aren't in the timer list and they aren't deafened either way, forget about it
     if (!timers.get(member.id) && !oldState.selfDeaf && !newState.selfDeaf) return;
-    // Get the timer
+    // Get the timer - wrap it in my hacky class
     const timeout: BetterTimeout | undefined = timers.get(member.id);
     const controller = new AbortController();
-    // If they just muted and they aren't already timed..
+    // If they just deafened and they aren't already timed..
     if (!timeout && !oldState.selfDeaf && newState.selfDeaf) {
       const signal = controller.signal;
       const timestamp = Date.now() + config.afkTimeout * 60000;
