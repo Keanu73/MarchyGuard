@@ -61,6 +61,6 @@ export abstract class Bot {
       },
     });
 
-    void Twitter.start(this.client);
+    if (process.env.NODE_ENV === "production") void Twitter.start(this.client);
   }
 }
