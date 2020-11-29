@@ -20,14 +20,18 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: get-npm-version
+      - name: Checkout GitHub repo
+        uses: actions/checkout@v2
+      - name: Get package.json version for Sentry release tagging
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
-      - uses: actions/checkout@v2
       - uses: actions/setup-node@v2-beta
         with:
           node-version: '14'
-      - run: npm run-script build
+      - name: Install packages
+        run: npm install
+      - name: Build TypeScript sourcemaps
+        run: npm run-script build
       - name: Creates Sentry release
         uses: getsentry/action-release@v1
         env:
