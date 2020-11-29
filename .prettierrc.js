@@ -1,6 +1,6 @@
 module.exports = {
-    endOfLine: "auto",
-	printWidth: 120,
+  endOfLine: "crlf",
+	printWidth: 130,
 	quoteProps: "as-needed",
 	semi: true,
 	trailingComma: "all",

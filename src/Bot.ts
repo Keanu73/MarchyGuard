@@ -29,9 +29,7 @@ export abstract class Bot {
   @Once("ready")
   async onReady(): Promise<void> {
     const guild = await App.client.guilds.fetch(config.guildID);
-    const channel = guild.channels.cache.find(
-      (channel) => channel.name === config.agreementChannel ?? "lobby",
-    ) as TextChannel;
+    const channel = guild.channels.cache.find((channel) => channel.name === config.agreementChannel ?? "lobby") as TextChannel;
     if (channel) {
       const messages = await channel.messages.fetch(undefined, true, true);
       if (messages.size === 1) {

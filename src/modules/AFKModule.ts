@@ -7,17 +7,26 @@ import { setTimeout } from "timers/promises";
 export class AFKModule {
   @On("voiceStateUpdate")
   onVoiceUpdate([oldState, newState]: VoiceState[], client: Client): void {
+    // Define comparison variables
+    const [oldChannel, newChannel, oldDeaf, newDeaf] = [oldState.channel, newState.channel, oldState.selfDeaf, newState.selfDeaf];
     // If they are already in the AFK channel, forget about it
     const afkChannel = newState.guild.channels.cache.find((channel) => channel.name === "AFK");
-    if (newState.channel === afkChannel) return;
-    const member = oldState.member as GuildMember;
-    // If they aren't in the timer list and they aren't deafened either way, forget about it
-    if (!timers.get(member.id) && !oldState.selfDeaf && !newState.selfDeaf) return;
+    const member = (oldState.member as GuildMember) ?? (newState.member as GuildMember);
     // Get the timer - wrap it in my hacky class
     const timeout: BetterTimeout | undefined = timers.get(member.id);
     const controller = new AbortController();
-    // If they just deafened and they aren't already timed..
-    if (!timeout && !oldState.selfDeaf && newState.selfDeaf) {
+    // If they are already in the AFK channel and were added to the queue or not, forget about it and/or remove them from the queue
+    if (!timeout && newChannel === afkChannel) return;
+    else if (timeout && newChannel === afkChannel) {
+      // Abort the timeout - turn the key.
+      timeout.controller.abort();
+      // Remove them from the map so we don't accidentally fetch them later.
+      timers.delete(member.id);
+    }
+    // If they aren't in the timer list and they aren't deafened either way, forget about it
+    if (!timers.get(member.id) && !oldState.selfDeaf && !newState.selfDeaf) return;
+    // If they just deafened and they aren't already timed, or if they joined deafened..
+    if (!timeout && ((!oldDeaf && newDeaf) || (oldDeaf && newDeaf && !oldChannel))) {
       const signal = controller.signal;
       const timestamp = Date.now() + config.afkTimeout * 60000;
       // Create timeout that executes function at specific point in time depending on configured AFK timeout
@@ -45,7 +54,7 @@ export class AFKModule {
       // However, if they either: unmuted after they were added to the queue
       // Or if they left the channel..
     } else if (timeout && Date.now() / 1000 < timeout.timestamp / 1000) {
-      if ((oldState.selfDeaf && !newState.selfDeaf) || (oldState.channel && !newState.channel)) {
+      if ((oldDeaf && !newDeaf) || (oldChannel && !newChannel)) {
         // Abort the timeout - turn the key.
         timeout.controller.abort();
         // Remove them from the map so we don't accidentally fetch them later.
