@@ -1,11 +1,11 @@
 {
   "name": "marchyguard",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "The guard of Marchy's Pack - coded beautifully in discord.ts",
   "main": "src/Bot.ts",
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only src/Bot.ts",
-    "start:prod": "node dist/Bot.ts",
+    "start:prod": "node dist/Bot.js",
     "build": "tsc -p tsconfig.production.json"
   },
   "repository": {
