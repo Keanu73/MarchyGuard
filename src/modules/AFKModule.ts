@@ -1,5 +1,5 @@
 import { GuildMember, VoiceState } from "discord.js";
-import { Client, On } from "@pho3nix90/discordts";
+import { Client, On } from "@typeit/discord";
 import { config } from "../Config";
 import { AbortController } from "abort-controller";
 import { setTimeout } from "timers/promises";
