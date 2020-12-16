@@ -1,5 +1,5 @@
 import { MessageEmbed, Guild, TextChannel } from "discord.js";
-import { Client } from "@pho3nix90/discordts";
+import { Client } from "@typeit/discord";
 import { config } from "../Config";
 import fetch from "node-fetch";
 
@@ -112,10 +112,7 @@ export class Twitter {
           const image = data.includes.media[0].url;
           newPost.setImage(image);
           tweet.text = tweet.text.replace(` ${tweet.entities.urls[0].url}`, "");
-        } else if (
-          data.includes.media[0].type === ("animated_gif" || "video") &&
-          data.includes.media[0].preview_image_url
-        ) {
+        } else if (data.includes.media[0].type === ("animated_gif" || "video") && data.includes.media[0].preview_image_url) {
           const previewImage = data.includes.media[0].preview_image_url;
           newPost.setImage(previewImage);
         }
@@ -130,9 +127,9 @@ export class Twitter {
       const end = Date.now();
 
       console.log(
-        `[TWITTER] POSTed submission ${tweet.text} by ${user.name} @ https://twitter.com/${user.username}/${
-          tweet.id
-        } in ${end - start}ms`,
+        `[TWITTER] POSTed submission ${tweet.text} by ${user.name} @ https://twitter.com/${user.username}/${tweet.id} in ${
+          end - start
+        }ms`,
       );
     } catch (err) {
       console.error(err);

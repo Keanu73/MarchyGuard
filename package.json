@@ -1,6 +1,6 @@
 {
   "name": "marchyguard",
-  "version": "0.6.3",
+  "version": "0.7.0",
   "description": "The guard of Marchy's Pack - coded beautifully in discord.ts",
   "main": "src/Bot.ts",
   "scripts": {
@@ -22,9 +22,11 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@pho3nix90/discordts": "^4.1.11",
+    "@adobe/node-fetch-retry": "^1.1.0",
+    "@discordjs/opus": "^0.3.3",
     "@sentry/node": "^5.27.1",
     "@sentry/tracing": "^5.27.1",
+    "@typeit/discord": "^4.0.8",
     "@types/node": "github:Keanu73/DefinitelyTyped",
     "discord.js": "^12.4.1",
     "dotenv": "^8.2.0",

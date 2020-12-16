@@ -1,4 +1,4 @@
-import { On } from "@pho3nix90/discordts";
+import { On } from "@typeit/discord";
 import { MessageReaction, User, TextChannel } from "discord.js";
 import { config } from "../Config";
 
@@ -24,9 +24,7 @@ export abstract class AgreementModule {
         void member?.roles.add(newMemberRole, "Successfully verified");
         void reaction.users.remove(user);
         console.info(
-          `[${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, "0")}] Added ${
-            user.username
-          } to the server`,
+          `[${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, "0")}] Added ${user.username} to the server`,
         );
       }
       // Otherwise, don't do anything.

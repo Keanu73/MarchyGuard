@@ -1,4 +1,4 @@
-import { GuardFunction } from "@pho3nix90/discordts";
+import { GuardFunction } from "@typeit/discord";
 import { config } from "../Config";
 
 export const Owner: GuardFunction<"message"> = async ([message], _client, next) => {
