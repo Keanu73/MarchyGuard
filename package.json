@@ -1,6 +1,6 @@
 {
   "name": "marchyguard",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "The guard of Marchy's Pack - coded beautifully in discord.ts",
   "main": "src/Bot.ts",
   "scripts": {
