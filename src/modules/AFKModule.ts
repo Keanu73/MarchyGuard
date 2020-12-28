@@ -27,6 +27,11 @@ export class AFKModule {
     if (!timers.get(member.id) && !oldState.selfDeaf && !newState.selfDeaf) return;
     // If they just deafened and they aren't already timed, or if they joined deafened..
     if (!timeout && ((!oldDeaf && newDeaf) || (oldDeaf && newDeaf && !oldChannel))) {
+      // Exempt Renny-UK and the lads from being AFK if playing EFT
+      if (member.presence.activities.find((activity) => activity.name.toLowerCase() === "escape from tarkov")) {
+        console.log(`[AFKMODULE] Member ${member.user.username} has been exempted as they are playing Tarkov`);
+        return;
+      }
       const signal = controller.signal;
       const timestamp = Date.now() + config.afkTimeout * 60000;
       // Create timeout that executes function at specific point in time depending on configured AFK timeout
