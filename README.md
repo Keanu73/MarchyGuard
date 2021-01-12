@@ -25,9 +25,9 @@ To use this in production, run `npm run-script build` then `npm run start:prod`.
 * Automatically moves deafened users to the AFK channel after X minutes (default is 10 - defined in .env)
 * Provides a walled-garden verification system for the server - tick a box and get granted a role to see the server.
 * Shows/hides a text channel on demand when a user joins/leaves a voice channel (excluding the AFK channel).
+* Listens to an mp3 stream URL and uses ffmpeg to broadcast it into a voice channel.
 * Posts any new tweets from [@MarchyPC](https://twitter.com/MarchyPC) to a specified Discord channel.
 
 ### Upcoming
 * Post new YouTube feeds to the same specified Discord channel and also FSElite RSS feeds, etc
 * Add screenshot competition entry system (see [#4](https://github.com/Keanu73/MarchyGuard/issues/4))
-* Be able to start a streaming server on demand to loopback VirtualDJ audio to a specified Discord channel (see [#3](https://github.com/Keanu73/MarchyGuard/issues/3))
