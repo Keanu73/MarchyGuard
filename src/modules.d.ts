@@ -12,6 +12,7 @@ declare global {
 
       SENTRY_DSN: string;
 
+      TWITTER: string;
       TWITTER_API_KEY: string;
       TWITTER_API_SECRET: string;
       TWITTER_BEARER_TOKEN: string;

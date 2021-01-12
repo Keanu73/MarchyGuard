@@ -56,7 +56,7 @@ export abstract class Bot {
       },
     });
 
-    if (process.env.NODE_ENV === "production") void Twitter.start(App.client);
+    if (process.env.TWITTER) void Twitter.start(App.client);
   }
 
   @On("message")
