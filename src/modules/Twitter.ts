@@ -27,10 +27,12 @@ export class Twitter {
   }
 
   static async receiveStream(): Promise<NodeJS.ReadableStream | undefined> {
+    const rules: { value: string }[] = [];
+    process.env.TWITTER_USERS.split(",").map((user) => rules.push({ value: `from:${user}` }));
     const addRule = await fetch("https://api.twitter.com/2/tweets/search/stream/rules", {
       method: "POST",
       body: JSON.stringify({
-        add: [{ value: "from:MarchyPC" }],
+        add: rules,
       }),
       headers: { Authorization: `Bearer ${config.twitter.bearerToken}`, "Content-Type": "application/json" },
     });

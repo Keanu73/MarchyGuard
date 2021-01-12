@@ -1,4 +1,4 @@
-import { GuildMember, TextChannel, VoiceState } from "discord.js";
+import { GuildMember, TextChannel, VoiceChannel, VoiceState } from "discord.js";
 import { Client, On } from "@typeit/discord";
 
 export class VoiceChatModule {
@@ -8,7 +8,9 @@ export class VoiceChatModule {
     // If they are a moderator, forget about it - they should be able to moderate the voice-chat channel
     if (member.roles.cache.find((role) => role.name === "Moderator")) return;
     // Fetch the AFK & voice-chat channel for later
-    const afkChannel = newState.guild.channels.cache.find((channel) => channel.name === "AFK");
+    const afkChannelId = newState.guild.afkChannelID ?? (oldState.guild.afkChannelID as string);
+    const afkChannel =
+      newState.guild.afkChannel ?? (oldState.guild.afkChannel as VoiceChannel) ?? newState.guild.channels.resolveID(afkChannelId);
     const voiceChatChannel = newState.guild.channels.cache.find((channel) => channel.name === "voice-chat");
     // Fetch the two states' channels for more readable comparisons
     const oldChannel = oldState.channel;
