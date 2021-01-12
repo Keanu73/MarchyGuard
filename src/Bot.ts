@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { ClientUser, TextChannel } from "discord.js";
 import { ArgsOf, Client, Discord, Once, On } from "@typeit/discord";
 import { config } from "./Config";
