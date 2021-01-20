@@ -4,7 +4,8 @@ import { Client, On } from "@typeit/discord";
 export class VoiceChatModule {
   @On("voiceStateUpdate")
   async onJoiningVoice([oldState, newState]: VoiceState[], _client: Client): Promise<void> {
-    const member = newState.member as GuildMember;
+    const memberId = oldState.id ?? newState.id;
+    const member = newState.member ?? (oldState.member as GuildMember) ?? newState.guild.members.resolve(memberId);
     // If they are a moderator, forget about it - they should be able to moderate the voice-chat channel
     if (member.roles.cache.find((role) => role.name === "Moderator")) return;
     // Fetch the AFK & voice-chat channel for later

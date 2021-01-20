@@ -14,7 +14,7 @@ export class AFKModule {
     const afkChannel =
       newState.guild.afkChannel ?? (oldState.guild.afkChannel as VoiceChannel) ?? newState.guild.channels.resolveID(afkChannelId);
     const memberId = oldState.id ?? newState.id;
-    const member = oldState.member ?? (newState.member as GuildMember) ?? newState.guild.members.resolveID(memberId);
+    const member = oldState.member ?? (newState.member as GuildMember) ?? newState.guild.members.resolve(memberId);
     // Get the timer - wrap it in my hacky class
     const timeout: BetterTimeout | undefined = timers.get(memberId);
     const controller = new AbortController();
@@ -45,9 +45,9 @@ export class AFKModule {
           // If aborted early, abort the timeout
           if (err.name === "AbortError")
             console.log(
-              `[AFKMODULE] Member ${member.user.username} now removed from timeout @ ${new Date().getHours()}:${String(
-                new Date().getMinutes(),
-              ).padStart(2, "0")}`,
+              `[${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, "0")}] [AFKMODULE] Member ${
+                member.user.username
+              } now removed from timeout`,
             );
         });
       // Wrap the timeout in a hacky class that allows me to add extra information on.. think of the controller as a key into the lock, and the timestamp the etching on the key
@@ -55,9 +55,9 @@ export class AFKModule {
       // Add it to the timers map for checking later
       timers.set(memberId, timeoutWrap);
       console.log(
-        `[AFKMODULE] Member ${member.user.username} now added to queue @ ${new Date().getHours()}:${String(
-          new Date().getMinutes(),
-        ).padStart(2, "0")}`,
+        `[${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, "0")}] [AFKMODULE] Member ${
+          member.user.username
+        } now added to queue`,
       );
       // However, if they either: unmuted after they were added to the queue
       // Or if they left the channel..
@@ -76,6 +76,7 @@ export const AFKTimeout = async (client: Client, state: VoiceState): Promise<voi
   // Fetch the guild for ease of use, force new cache
   const guild = await client.guilds.fetch(config.guildID, false, true);
   const member = state.member ?? (await guild.members.fetch({ user: state.id, cache: false, force: true }));
+  if (!state.channel) timers.delete(state.id);
   const afkChannel = state.guild.afkChannelID;
   try {
     // Move person to AFK channel
