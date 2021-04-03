@@ -14,6 +14,8 @@ export const config = {
 
   sentry_dsn: process.env.SENTRY_DSN,
 
+  virtualdjIP: process.env.DISCORD_VIRTUALDJ_IP,
+
   twitter: {
     apiKey: process.env.TWITTER_API_KEY,
     apiKeySecret: process.env.TWITTER_API_SECRET,

@@ -6,8 +6,9 @@ export class VoiceChatModule {
   async onJoiningVoice([oldState, newState]: VoiceState[], _client: Client): Promise<void> {
     const memberId = oldState.id ?? newState.id;
     const member = newState.member ?? (oldState.member as GuildMember) ?? newState.guild.members.resolve(memberId);
+    const rolesCache = member.roles.cache;
     // If they are a moderator, forget about it - they should be able to moderate the voice-chat channel
-    if (member.roles.cache.find((role) => role.name === "Moderator")) return;
+    if (rolesCache.find((role) => role.name === "Moderator")) return;
     // Fetch the AFK & voice-chat channel for later
     const afkChannelId = newState.guild.afkChannelID ?? (oldState.guild.afkChannelID as string);
     const afkChannel =
@@ -31,7 +32,7 @@ export class VoiceChatModule {
         .get(member.id)
         ?.delete(`${member.user.username} left ${oldChannel.name}`);
       // If they move from the AFK channel to a voice channel..
-    } else if (oldChannel && newChannel && newChannel !== afkChannel) {
+    } else if (oldChannel && newChannel && oldChannel === afkChannel && newChannel !== afkChannel) {
       // Welcome them back
       void (voiceChatChannel as TextChannel).updateOverwrite(
         member,
