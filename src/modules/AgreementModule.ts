@@ -22,7 +22,7 @@ export abstract class AgreementModule {
         const memberHasRole = member.roles.cache.has(newMemberRole.id);
         if (!memberHasRole) {
           // If they don't have it, give them it.
-          void member.roles.add(newMemberRole, "Successfully verified");
+          void member.roles.add(newMemberRole, "Accepted the rules");
           void reaction.users.remove(user);
           console.info(
             `[${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, "0")}] Added ${user.username} to the server`,

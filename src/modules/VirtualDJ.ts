@@ -1,5 +1,3 @@
-// http://109.158.140.25:8000/listen.mp3
-
 import { Command, CommandMessage, Discord, Description, Guard, Infos } from "@typeit/discord";
 import { config } from "../Config";
 import { VoiceConnection } from "discord.js";
@@ -16,7 +14,7 @@ export abstract class VirtualDJ {
   async listen(message: CommandMessage): Promise<void> {
     try {
       console.log("[VIRTUALDJ] Attempting to ping stream URL...");
-      await fetch("http://109.158.140.25:8000/listen.mp3", {
+      await fetch(`http://${config.virtualdjIP}:8000/listen.mp3`, {
         retryOptions: {
           retryInitialDelay: 2000,
           retryBackoff: 5,
@@ -25,10 +23,12 @@ export abstract class VirtualDJ {
       });
       console.log("[VIRTUALDJ] Ping successful");
       const connection = await message?.member?.voice.channel?.join();
-      const dispatcher = connection?.play("http://109.158.140.25:8000/listen.mp3");
+      const dispatcher = connection?.play(`http://${config.virtualdjIP}:8000/listen.mp3`);
       dispatcher?.on("start", () => {
         console.log("[VIRTUALDJ] Stream started");
-        void message.reply(":white_check_mark: Started playing VirtualDJ stream!");
+        void message.reply(":white_check_mark: Started playing VirtualDJ stream!").then((msg) => {
+          setTimeout(() => void msg.delete(), 5000);
+        });
       });
       dispatcher?.on("error", (err) => {
         console.error(err);
@@ -41,7 +41,9 @@ export abstract class VirtualDJ {
     } catch (error) {
       if (error.name === "FetchError" && error.code === "ETIMEDOUT") {
         console.log("[VIRTUALDJ] Failed to connect after 1 retry");
-        void message.reply(":negative_squared_cross_mark: Failed to connect to the stream after 1 retry");
+        void message.reply(":negative_squared_cross_mark: Failed to connect to the stream after 1 retry").then((msg) => {
+          setTimeout(() => void msg.delete(), 5000);
+        });
       }
     }
   }

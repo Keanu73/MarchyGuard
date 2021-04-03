@@ -2,6 +2,9 @@ import { ClientUser, TextChannel } from "discord.js";
 import { ArgsOf, Client, Discord, Once, On } from "@typeit/discord";
 import { config } from "./Config";
 import * as Sentry from "@sentry/node";
+//import os from "os";
+//import winston from "winston";
+//import "winston-syslog";
 import { Twitter } from "./modules/Twitter";
 import * as Path from "path";
 
@@ -15,6 +18,19 @@ export class App {
   static start(): void {
     this._client = new Client();
 
+    /*const papertrail = winston.add(new winston.transports.Syslog({
+      host: "logsN.papertrailapp.com",
+      port: XXXXX,
+      protocol: "tls4",
+      localhost: os.hostname(),
+      eol: "\n",
+    });
+
+    const logger = winston.createLogger({
+      format: winston.format.simple(),
+      levels: winston.config.syslog.levels,
+      transports: [papertrail],
+    });*/
     if (process.env.NODE_ENV === "production") Sentry.init({ dsn: config.sentry_dsn, tracesSampleRate: 1.0 });
 
     void this._client.login(config.token, `${__dirname}/modules/*.{ts,js}`);
@@ -55,6 +71,16 @@ export abstract class Bot {
         url: "https://twitch.tv/Maarchy",
       },
     });
+
+    setInterval(() => {
+      void App.client.user?.setPresence({
+        activity: {
+          name: "Marchy fly",
+          type: "WATCHING",
+          url: "https://twitch.tv/Maarchy",
+        },
+      });
+    }, 86400000);
 
     if (process.env.TWITTER) void Twitter.start(App.client);
   }

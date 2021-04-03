@@ -9,6 +9,7 @@ declare global {
       DISCORD_AGREEMENT_CHANNEL: string;
       DISCORD_OWNER_ID: string;
       DISCORD_SOCIAL_FEED_CHANNEL: string;
+      DISCORD_VIRTUALDJ_IP: string;
 
       SENTRY_DSN: string;
 

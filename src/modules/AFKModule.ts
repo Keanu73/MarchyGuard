@@ -8,7 +8,14 @@ export class AFKModule {
   @On("voiceStateUpdate")
   onVoiceUpdate([oldState, newState]: VoiceState[], client: Client): void {
     // Define comparison variables
-    const [oldChannel, newChannel, oldDeaf, newDeaf] = [oldState.channel, newState.channel, oldState.selfDeaf, newState.selfDeaf];
+    const [oldChannel, newChannel, oldDeaf, newDeaf, oldMute, newMute] = [
+      oldState.channel,
+      newState.channel,
+      oldState.selfDeaf,
+      newState.selfDeaf,
+      oldState.selfMute,
+      newState.selfMute,
+    ];
     // If they are already in the AFK channel, forget about it
     const afkChannelId = newState.guild.afkChannelID ?? (oldState.guild.afkChannelID as string);
     const afkChannel =
@@ -26,10 +33,10 @@ export class AFKModule {
       // Remove them from the map so we don't accidentally fetch them later.
       timers.delete(memberId);
     }
-    // If they aren't in the timer list and they aren't deafened either way, forget about it
-    if (!timers.get(memberId) && !oldState.selfDeaf && !newState.selfDeaf) return;
+    // If they aren't in the timer list and they aren't deafened/muted either way, forget about it
+    if (!timeout && !oldState.selfDeaf && !newState.selfDeaf && !oldState.selfMute && !newState.selfMute) return;
     // If they just deafened and they aren't already timed, or if they joined deafened..
-    if (!timeout && ((!oldDeaf && newDeaf) || (oldDeaf && newDeaf))) {
+    if (!timeout && ((!oldDeaf && newDeaf) || (oldDeaf && newDeaf) || (!oldMute && newMute) || (oldMute && newMute))) {
       // Exempt Renny-UK and the lads from being AFK if playing EFT
       if (member.presence.activities.find((activity) => activity.name.toLowerCase() === "escape from tarkov")) {
         console.log(`[AFKMODULE] Member ${member.user.username} has been exempted as they are playing Tarkov`);
@@ -67,6 +74,12 @@ export class AFKModule {
         timeout.controller.abort();
         // Remove them from the map so we don't accidentally fetch them later.
         timers.delete(memberId);
+        // Log it!
+        console.log(
+        `[${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, "0")}] [AFKMODULE] Member ${
+          member.user.username
+        } now removed from timeout`,
+      );
       }
     }
   }
@@ -76,7 +89,10 @@ export const AFKTimeout = async (client: Client, state: VoiceState): Promise<voi
   // Fetch the guild for ease of use, force new cache
   const guild = await client.guilds.fetch(config.guildID, false, true);
   const member = state.member ?? (await guild.members.fetch({ user: state.id, cache: false, force: true }));
-  if (!state.channel) timers.delete(state.id);
+  if (!state.channel) {
+    timers.delete(state.id);
+    return;
+  }
   const afkChannel = state.guild.afkChannelID;
   try {
     // Move person to AFK channel
