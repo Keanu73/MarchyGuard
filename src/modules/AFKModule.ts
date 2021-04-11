@@ -8,11 +8,9 @@ export class AFKModule {
   @On("voiceStateUpdate")
   onVoiceUpdate([oldState, newState]: VoiceState[], client: Client): void {
     // Define comparison variables
-    const [oldChannel, newChannel, oldDeaf, newDeaf, oldMute, newMute] = [
+    const [oldChannel, newChannel, oldMute, newMute] = [
       oldState.channel,
       newState.channel,
-      oldState.selfDeaf,
-      newState.selfDeaf,
       oldState.selfMute,
       newState.selfMute,
     ];
@@ -34,9 +32,9 @@ export class AFKModule {
       timers.delete(memberId);
     }
     // If they aren't in the timer list and they aren't deafened/muted either way, forget about it
-    if (!timeout && !oldState.selfDeaf && !newState.selfDeaf && !oldState.selfMute && !newState.selfMute) return;
+    if (!timeout && !oldState.selfMute && !newState.selfMute) return;
     // If they just deafened and they aren't already timed, or if they joined deafened..
-    if (!timeout && ((!oldDeaf && newDeaf) || (oldDeaf && newDeaf) || (!oldMute && newMute) || (oldMute && newMute))) {
+    if (!timeout && ((!oldMute && newMute) || (oldMute && newMute))) {
       // Exempt Renny-UK and the lads from being AFK if playing EFT
       if (member.presence.activities.find((activity) => activity.name.toLowerCase() === "escape from tarkov")) {
         console.log(`[AFKMODULE] Member ${member.user.username} has been exempted as they are playing Tarkov`);
@@ -69,17 +67,11 @@ export class AFKModule {
       // However, if they either: unmuted after they were added to the queue
       // Or if they left the channel..
     } else if (timeout && Date.now() / 1000 < timeout.timestamp / 1000) {
-      if ((oldDeaf && !newDeaf) || (oldChannel && !newChannel)) {
+      if ((oldMute && !newMute) || (oldChannel && !newChannel)) {
         // Abort the timeout - turn the key.
         timeout.controller.abort();
         // Remove them from the map so we don't accidentally fetch them later.
         timers.delete(memberId);
-        // Log it!
-        console.log(
-        `[${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, "0")}] [AFKMODULE] Member ${
-          member.user.username
-        } now removed from timeout`,
-      );
       }
     }
   }
