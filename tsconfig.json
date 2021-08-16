@@ -1,42 +1,22 @@
 {
     "compilerOptions": {
-        "baseUrl": "./",
-        "outDir": "./dist/",
-        "sourceMap": true,
-        "declaration": false,
-        "downlevelIteration": true,
-        "experimentalDecorators": true,
-        "moduleResolution": "node",
-        "importHelpers": true,
-        "types": [
-            "node"
-        ],
-        "typeRoots": [
-            "node_modules/@types"
-        ],
-        "lib": [
-            "dom",
-            "es2017",
-            "esnext.asynciterable",
-        ],
-        "allowJs": true,
-        "target": "es2017",
         "module": "commonjs",
-        "strict": true, /* Enable all strict type-checking options. */
-        "noImplicitAny": false, /* Raise error on expressions and declarations with an implied 'any' type. */
-        "strictNullChecks": true, /* Enable strict null checks. */
-        "strictFunctionTypes": true, /* Enable strict checking of function types. */
-        "strictBindCallApply": true, /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
-        "strictPropertyInitialization": false, /* Enable strict checking of property initialization in classes. */
-        "noImplicitThis": true, /* Raise error on 'this' expressions with an implied 'any' type. */
-        "alwaysStrict": true, /* Parse in strict mode and emit "use strict" for each source file. */
-        "noUnusedLocals": true, /* Report errors on unused locals. */
-        "noUnusedParameters": true, /* Report errors on unused parameters. */
-        "noImplicitReturns": true, /* Report error when not all code paths in function return a value. */
-        "noFallthroughCasesInSwitch": true, /* Report errors for fallthrough cases in switch statement. */
-        "esModuleInterop": true,
+        "target": "ES2021",
+        "noImplicitAny": false,
+        "sourceMap": true,
+        "strict": true,
+        "outDir": "build",
         "emitDecoratorMetadata": true,
-        "forceConsistentCasingInFileNames": true
+        "experimentalDecorators": true,
+        "declaration": true,
+        "importHelpers": true,
+        "forceConsistentCasingInFileNames": true,
+        "strictPropertyInitialization": false,
+        "lib": [
+            "ES2021",
+            "esnext.asynciterable"
+        ],
+        "moduleResolution": "node"
     },
     "exclude": [
         "node_modules"

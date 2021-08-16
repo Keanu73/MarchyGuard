@@ -1,4 +1,4 @@
-import { Command, CommandMessage, Description, Discord, Guard } from "@typeit/discord";
+import { Command, CommandMessage, Description, Discord, Guard } from "discordx";
 import { Owner } from "./guards/Owner.ts.disabled";
 import { RequireDB } from "./guards/RequireDB.ts.disabled";
 import fs from "fs/promises";

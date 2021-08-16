@@ -1,4 +1,4 @@
-import { GuardFunction } from "@typeit/discord";
+import { GuardFunction } from "discordx";
 import { config } from "../Config";
 
 export const RequireDB: GuardFunction<"message"> = async ([_message], _client, next) => {

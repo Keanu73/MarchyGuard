@@ -1,8 +1,10 @@
-import { GuardFunction } from "@typeit/discord";
+import { Next } from "discordx";
+import { CommandInteraction, Client, Message } from "discord.js";
 import { config } from "../Config";
 
-export const Owner: GuardFunction<"message"> = async ([message], _client, next) => {
-  if (message.author.id === config.ownerID) {
-    await next();
-  }
-};
+export async function Owner(message: Message | CommandInteraction, client: Client, next: Next) {
+  const member = message.member;
+    if (member?.user.id === config.ownerID) {
+        await next();
+    }
+}

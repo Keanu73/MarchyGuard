@@ -1,5 +1,5 @@
 /* import { MessageEmbed, Guild, TextChannel } from "discord.js";
-import { Client } from "@typeit/discord";
+import { Client } from "discordx";
 import Youtube from "youtube.ts"
 import { config } from "config";
 

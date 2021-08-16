@@ -1,4 +1,4 @@
-import { On } from "@typeit/discord";
+import { On } from "discordx";
 import { MessageReaction, User, TextChannel } from "discord.js";
 import { config } from "../Config";
 

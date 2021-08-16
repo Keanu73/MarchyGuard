@@ -1,7 +1,6 @@
 import { GuildMember, VoiceChannel, VoiceState } from "discord.js";
-import { Client, On } from "@typeit/discord";
+import { Client, On } from "discordx";
 import { config } from "../Config";
-import { AbortController } from "abort-controller";
 import { setTimeout } from "timers/promises";
 
 export class AFKModule {
@@ -15,9 +14,9 @@ export class AFKModule {
       newState.selfMute,
     ];
     // If they are already in the AFK channel, forget about it
-    const afkChannelId = newState.guild.afkChannelID ?? (oldState.guild.afkChannelID as string);
+    const afkChannelId = newState.guild.afkChannelId ?? (oldState.guild.afkChannelId as string);
     const afkChannel =
-      newState.guild.afkChannel ?? (oldState.guild.afkChannel as VoiceChannel) ?? newState.guild.channels.resolveID(afkChannelId);
+      newState.guild.afkChannel ?? (oldState.guild.afkChannel as VoiceChannel) ?? newState.guild.channels.resolveId(afkChannelId);
     const memberId = oldState.id ?? newState.id;
     const member = oldState.member ?? (newState.member as GuildMember) ?? newState.guild.members.resolve(memberId);
     // Get the timer - wrap it in my hacky class
@@ -36,7 +35,7 @@ export class AFKModule {
     // If they just deafened and they aren't already timed, or if they joined deafened..
     if (!timeout && ((!oldMute && newMute) || (oldMute && newMute))) {
       // Exempt Renny-UK and the lads from being AFK if playing EFT
-      if (member.presence.activities.find((activity) => activity.name.toLowerCase() === "escape from tarkov")) {
+      if (member.presence?.activities.find((activity) => activity.name.toLowerCase() === "escape from tarkov")) {
         console.log(`[AFKMODULE] Member ${member.user.username} has been exempted as they are playing Tarkov`);
         return;
       }
@@ -52,7 +51,7 @@ export class AFKModule {
             console.log(
               `[${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, "0")}] [AFKMODULE] Member ${
                 member.user.username
-              } now removed from timeout`,
+              } unmuted/undeafened themselves`,
             );
         });
       // Wrap the timeout in a hacky class that allows me to add extra information on.. think of the controller as a key into the lock, and the timestamp the etching on the key
@@ -62,7 +61,7 @@ export class AFKModule {
       console.log(
         `[${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, "0")}] [AFKMODULE] Member ${
           member.user.username
-        } now added to queue`,
+        } muted/deafened themselves`,
       );
       // However, if they either: unmuted after they were added to the queue
       // Or if they left the channel..
@@ -79,13 +78,13 @@ export class AFKModule {
 
 export const AFKTimeout = async (client: Client, state: VoiceState): Promise<void> => {
   // Fetch the guild for ease of use, force new cache
-  const guild = await client.guilds.fetch(config.guildID, false, true);
+  const guild = await client.guilds.fetch({ force: true, cache: false, guild: config.guildID });
   const member = state.member ?? (await guild.members.fetch({ user: state.id, cache: false, force: true }));
   if (!state.channel) {
     timers.delete(state.id);
     return;
   }
-  const afkChannel = state.guild.afkChannelID;
+  const afkChannel = state.guild.afkChannelId;
   try {
     // Move person to AFK channel
     console.log(

@@ -1,7 +1,8 @@
 import { MessageEmbed, Guild, TextChannel } from "discord.js";
-import { Client } from "@typeit/discord";
+import { Client } from "discordx";
 import { config } from "../Config";
 import fetch from "node-fetch";
+import { URLSearchParams } from "url";
 
 export class Twitter {
   private static started: number;
@@ -124,7 +125,7 @@ export class Twitter {
 
       const guild = this.client.guilds.cache.get(config.guildID);
       const channel = (guild as Guild).channels.cache.find((channel) => channel.name === config.socialFeedChannel);
-      (channel as TextChannel).send({ embed: newPost }).catch((err) => console.error(err));
+      (channel as TextChannel).send({embeds: [newPost]}).catch((err) => console.error(err));
 
       const end = Date.now();
 

@@ -5,6 +5,7 @@ export const config = {
   prefix: process.env.DISCORD_PREFIX,
   guildID: process.env.DISCORD_GUILD_ID,
 
+  afkChannelId: process.env.DISCORD_AFK_CHANNEL_ID,
   afkTimeout: Number(process.env.DISCORD_AFK_TIMEOUT),
 
   agreementChannel: process.env.DISCORD_AGREEMENT_CHANNEL,
