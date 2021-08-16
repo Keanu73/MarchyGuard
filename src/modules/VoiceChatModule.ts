@@ -1,10 +1,11 @@
-import { GuildMember, TextChannel, VoiceState } from "discord.js";
-import { Client, On } from "discordx";
+import { GuildMember, TextChannel } from "discord.js";
+import { ArgsOf, Client, Discord, On } from "discordx";
 import { config } from "../Config";
 
+@Discord()
 export class VoiceChatModule {
   @On("voiceStateUpdate")
-  async onJoiningVoice([oldState, newState]: VoiceState[], _client: Client): Promise<void> {
+  async voiceChatMonitor([oldState, newState]: ArgsOf<"voiceStateUpdate">, _client: Client): Promise<void> {
     const memberId = oldState.id ?? newState.id;
     const member = newState.member ?? (oldState.member as GuildMember) ?? newState.guild.members.resolve(memberId);
     if (!member) return;

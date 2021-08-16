@@ -1,7 +1,8 @@
-import { On } from "discordx";
+import { Discord, On } from "discordx";
 import { MessageReaction, User, TextChannel } from "discord.js";
 import { config } from "../Config";
 
+@Discord()
 export abstract class AgreementModule {
   @On("messageReactionAdd")
   async messageReactionAdd([reaction, user]: [MessageReaction, User]): Promise<void> {

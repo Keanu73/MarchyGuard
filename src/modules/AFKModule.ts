@@ -1,11 +1,12 @@
 import { GuildMember, VoiceChannel, VoiceState } from "discord.js";
-import { Client, On } from "discordx";
+import { ArgsOf, Client, Discord, On } from "discordx";
 import { config } from "../Config";
 import { setTimeout } from "timers/promises";
 
+@Discord()
 export class AFKModule {
   @On("voiceStateUpdate")
-  onVoiceUpdate([oldState, newState]: VoiceState[], client: Client): void {
+  async afkMonitor([oldState, newState]: ArgsOf<"voiceStateUpdate">, client: Client): Promise<void> {
     // Define comparison variables
     const [oldChannel, newChannel, oldMute, newMute] = [
       oldState.channel,
