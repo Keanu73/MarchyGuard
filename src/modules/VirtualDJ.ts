@@ -13,10 +13,10 @@ import {
   PlayerSubscription,
   getVoiceConnection
 } from "@discordjs/voice";
-import { Owner } from "../guards/Owner";
+//import { Owner } from "../guards/Owner";
 
 @Discord()
-@Guard(Owner)
+//@Guard(Owner)
 @SlashGroup("dj", "VirtualDJ module commands")
 export abstract class VirtualDJ {
   player: AudioPlayer;
