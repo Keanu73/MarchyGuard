@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import * as Path from "path";
-import { Intents, Interaction, Message, GuildChannel, ThreadChannel, TextChannel } from "discord.js";
+import { Intents, Interaction, TextChannel } from "discord.js";
 import { Client } from "discordx";
 import { config } from "./Config";
 import * as Sentry from "@sentry/node";
@@ -17,11 +17,12 @@ const client = new Client({
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,
     Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+    Intents.FLAGS.GUILD_PRESENCES,
     Intents.FLAGS.GUILD_VOICE_STATES,
   ],
   classes: [
-    Path.join(__dirname, "commands", "**/*.{ts,js}"),
-    Path.join(__dirname, "guards", "**/*.{ts,js}"),
+    //Path.join(__dirname, "commands", "**/*.{ts,js}"),
+    //Path.join(__dirname, "guards", "**/*.{ts,js}"),
     Path.join(__dirname, "modules", "**/*.{ts,js}"),
   ],
   botGuilds: [config.guildID ?? ""],

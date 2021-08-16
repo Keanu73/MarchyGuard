@@ -1,4 +1,4 @@
-import { GuildMember, TextChannel, VoiceChannel, VoiceState } from "discord.js";
+import { GuildMember, TextChannel, VoiceState } from "discord.js";
 import { Client, On } from "discordx";
 import { config } from "../Config";
 
